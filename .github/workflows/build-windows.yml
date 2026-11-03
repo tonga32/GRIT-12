@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
+    tags: [ 'v*' ]
   pull_request:
 
 jobs:
@@ -17,12 +18,15 @@ jobs:
       - name: Configure CMake
         run: cmake -S . -B build -A x64
 
-      - name: Build VST3
+      - name: Build VST3 and Standalone
         run: cmake --build build --config Release --parallel
 
       - name: Upload compiled plugin
         uses: actions/upload-artifact@v4
         with:
           name: GRIT-12-Windows-VST3
-          path: build/GRIT12_artefacts/Release/
+          path: |
+            build/GRIT12_artefacts/Release/VST3/GRIT-12.vst3
+            build/GRIT12_artefacts/Release/Standalone/GRIT-12.exe
           if-no-files-found: error
+          compression-level: 6
