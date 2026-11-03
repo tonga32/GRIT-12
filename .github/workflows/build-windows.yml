@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Configure CMake
         run: cmake -S . -B build -A x64
@@ -22,7 +22,7 @@ jobs:
         run: cmake --build build --config Release --parallel
 
       - name: Upload compiled plugin
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: GRIT-12-Windows-VST3
           path: |
