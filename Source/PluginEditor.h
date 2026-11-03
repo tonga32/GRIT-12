@@ -8,10 +8,6 @@ class GritLookAndFeel final : public juce::LookAndFeel_V4
 public:
     GritLookAndFeel();
 
-    void drawRotarySlider (juce::Graphics&, int x, int y, int width, int height,
-                           float sliderPosProportional, float rotaryStartAngle,
-                           float rotaryEndAngle, juce::Slider&) override;
-
     void drawLinearSlider (juce::Graphics&, int x, int y, int width, int height,
                            float sliderPos, float minSliderPos, float maxSliderPos,
                            const juce::Slider::SliderStyle, juce::Slider&) override;
@@ -27,7 +23,7 @@ public:
     static juce::Colour background();
     static juce::Colour panel();
     static juce::Colour raised();
-    static juce::Colour amber();
+    static juce::Colour accent();
     static juce::Colour cream();
     static juce::Colour muted();
 };
@@ -42,9 +38,10 @@ public:
     void resized() override;
 
 private:
-    void configureKnob (juce::Slider&, juce::Label&, const juce::String& labelText);
+    void configureFader (juce::Slider&, juce::Label&, const juce::String& labelText);
     void updateDetuneRange();
     void updateDetuneReadout();
+    void updateValueReadouts();
 
     Grit12AudioProcessor& audioProcessor;
     GritLookAndFeel gritLookAndFeel;
@@ -63,8 +60,15 @@ private:
     juce::Label inputLabel;
     juce::Label outputLabel;
     juce::Label mixLabel;
-    juce::Label routingLabel;
+
+    juce::Label filterReadout;
+    juce::Label bitsReadout;
+    juce::Label inputReadout;
+    juce::Label outputReadout;
+    juce::Label mixReadout;
+
     juce::Label footerLabel;
+    juce::Label routingLabel;
 
     juce::ComboBox routingBox;
     juce::TextButton rangeButton { "RANGE -15" };
